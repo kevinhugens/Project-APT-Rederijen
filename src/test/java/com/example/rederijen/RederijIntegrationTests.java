@@ -51,17 +51,6 @@ public class RederijIntegrationTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void testGetRederijById() throws Exception {
-
-        mockMvc.perform(get("/rederij/{id}", 1))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.rederijdID", is(1)))
-                .andExpect(jsonPath("$.naam", is("Thomas More")))
-                .andExpect(jsonPath("$.mail", is("thomasmore@gmail.com")));
-    }
-
-    @Test
     public void testGetRederijenByPostcode() throws Exception {
         List<Rederij> rederijs = new ArrayList<>();
         rederijs.add(rederij1);

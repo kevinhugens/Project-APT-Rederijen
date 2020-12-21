@@ -35,20 +35,6 @@ public class RederijUnitTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void unitTestGetRederijById() throws Exception {
-        Rederij rederij1 = new Rederij(1, "Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
-
-        given(rederijRepository.findRederijByRederijdID(1)).willReturn(rederij1);
-
-        mockMvc.perform(get("/rederij/{id}", 1))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.rederijdID", is(1)))
-                .andExpect(jsonPath("$.naam", is("Thomas More")))
-                .andExpect(jsonPath("$.mail", is("thomasmore@gmail.com")));
-    }
-
-    @Test
     public void unitTestGetRederijenByPostcode() throws Exception {
         List<Rederij> rederijs = new ArrayList<>();
         Rederij rederij1 = new Rederij(1, "Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
