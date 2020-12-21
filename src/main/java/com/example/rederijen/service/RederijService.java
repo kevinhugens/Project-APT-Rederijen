@@ -2,7 +2,6 @@ package com.example.rederijen.service;
 
 import com.example.rederijen.models.Rederij;
 import com.example.rederijen.repository.RederijRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,12 @@ import java.util.List;
 public class RederijService {
 
 
-    @Autowired
+
     private RederijRepository rederijRepository;
+
+    public RederijService(RederijRepository rederijRepository) {
+        this.rederijRepository = rederijRepository;
+    }
 
     public Rederij getRederijById(int id){
         Rederij rederij;
