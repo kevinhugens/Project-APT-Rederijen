@@ -4,12 +4,15 @@ import com.example.rederijen.models.Rederij;
 import com.example.rederijen.repository.RederijRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class RederijService {
 
-
+    Logger logger = Logger.getLogger(RederijService.class.getName());
 
     private RederijRepository rederijRepository;
 
@@ -26,9 +29,11 @@ public class RederijService {
     }
 
     public List<Rederij> getRederijenByPostcode(String postcode){
-        List<Rederij> rederijs;
+        List<Rederij> rederijs = new ArrayList<>();
+        logger.setLevel(Level.INFO);
+        logger.info(postcode);
         rederijs = rederijRepository.findRederijsByPostcode(postcode);
-
+        logger.info(rederijs.toString());
         //logging
         return rederijs;
     }

@@ -1,19 +1,23 @@
 package com.example.rederijen;
 
 
+import com.example.rederijen.controller.RederijController;
 import com.example.rederijen.models.Rederij;
 import com.example.rederijen.repository.RederijRepository;
+import com.example.rederijen.service.RederijService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -21,8 +25,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(controllers = RederijController.class , excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
 public class RederijUnitTests {
 
 
@@ -31,6 +34,15 @@ public class RederijUnitTests {
 
     @MockBean
     private RederijRepository rederijRepository;
+
+    @MockBean
+    private RederijService rederijService;
+
+    private final static Logger logger = Logger.getLogger(RederijUnitTests.class.getName());
+
+
+//    @MockBean
+//    private MongoTemplate mongoTemplatel;
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -48,7 +60,7 @@ public class RederijUnitTests {
         given(rederijRepository.findRederijsByPostcode("2440")).willReturn(rederijs);
 
         mockMvc.perform(get("/rederij/postcode/{postcode}", "2440"))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].rederijdID", is(1)))
@@ -61,12 +73,16 @@ public class RederijUnitTests {
 
     @Test
     public void unitTestGetRederijByTelefoon() throws Exception {
+
         Rederij rederij1 = new Rederij(1, "Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
+
+        logger.setLevel(Level.INFO);
+        logger.info(rederij1.toString());
 
         given(rederijRepository.findRederijByTelefoon("0474848488")).willReturn(rederij1);
 
         mockMvc.perform(get("/rederij/telefoon/{telefoon}", "0474848488"))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.rederijdID", is(1)))
                 .andExpect(jsonPath("$.telefoon", is("0474848488")))
@@ -75,14 +91,13 @@ public class RederijUnitTests {
 
     @Test
     public void unitTestPostRederij() throws Exception {
+
         Rederij rederij4 = new Rederij(4, "TestRederij", "test@gmail.com", "0444444444", "2500", "TestDorp");
 
-
-
-        mockMvc.perform(post("rederij/insert/")
+        mockMvc.perform(post("/rederij/insert/")
                 .content(mapper.writeValueAsString(rederij4))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .contentType("application/json"))
+                .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.rederID", is(4)))
                 .andExpect(jsonPath("$.naam", is("TestRederij")))
@@ -95,7 +110,7 @@ public class RederijUnitTests {
 
         given(rederijRepository.findRederijByRederijdID(3)).willReturn(rederij3);
 
-        mockMvc.perform(delete("rederij/delete/{id}", 3)
+        mockMvc.perform(delete("/rederij/delete/{id}", 3)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
