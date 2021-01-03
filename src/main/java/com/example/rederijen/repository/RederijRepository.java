@@ -13,6 +13,8 @@ public interface RederijRepository extends MongoRepository<Rederij, Integer> {
 
     Rederij findRederijByRederijdID(int id);
 
+    Rederij findRederijByNaam(String naam);
+
     List<Rederij> findRederijsByPostcode(String postcode);
 
     Rederij findRederijByTelefoon(String telefoon);
