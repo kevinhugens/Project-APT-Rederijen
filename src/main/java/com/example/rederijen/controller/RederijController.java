@@ -56,7 +56,15 @@ public class RederijController {
         rederijService.deleteRederij(id);
     }
 
-    @PostMapping("rederij/insert/")
+    @PutMapping("rederij/update")
+    public Rederij updateRederij(@RequestBody Rederij rederij) {
+        Rederij retrievedRederij;
+
+        retrievedRederij = rederijService.updateRederij(rederij);
+        return retrievedRederij;
+    }
+
+    @PostMapping("rederij")
     public Rederij insertRederij(@RequestBody Rederij rederij){
         return rederijService.insertRederij(rederij);
     }

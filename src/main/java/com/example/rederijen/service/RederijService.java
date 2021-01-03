@@ -70,6 +70,19 @@ public class RederijService {
 
     }
 
+    public Rederij updateRederij(Rederij rederij) {
+        Rederij newRederij = rederijRepository.findRederijByRederijdID(rederij.getRederijdID());
+
+        newRederij.setGemeente(rederij.getGemeente());
+        newRederij.setMail(rederij.getMail());
+        newRederij.setNaam(rederij.getNaam());
+        newRederij.setPostcode(rederij.getPostcode());
+        newRederij.setTelefoon(rederij.getTelefoon());
+
+        rederijRepository.save(newRederij);
+        return newRederij;
+    }
+
     public void deleteRederij(int rederijId){
         //logging
         rederijRepository.deleteById(rederijId);
