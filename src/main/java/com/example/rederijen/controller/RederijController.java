@@ -3,7 +3,6 @@ package com.example.rederijen.controller;
 import com.example.rederijen.models.Rederij;
 import com.example.rederijen.repository.RederijRepository;
 import com.example.rederijen.service.RederijService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
