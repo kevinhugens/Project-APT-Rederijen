@@ -28,6 +28,13 @@ public class RederijService {
         return rederij;
     }
 
+    public List<Rederij> getAllRederijen() {
+        List<Rederij> rederijs;
+        rederijs = rederijRepository.findAll();
+
+        return rederijs;
+    }
+
     public Rederij getRederijByNaam(String naam) {
         Rederij rederij;
         rederij = rederijRepository.findRederijByNaam(naam);

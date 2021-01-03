@@ -30,6 +30,11 @@ public class RederijController {
         return rederijService.getRederijById(id);
     }
 
+    @GetMapping("/containers")
+    public List<Rederij> getAllContainers() {
+        return rederijService.getAllRederijen();
+    }
+
     @GetMapping("/rederij/{naam}")
     public Rederij getRederijByNaam(@PathVariable String naam) {
         //logging
@@ -64,7 +69,7 @@ public class RederijController {
         return retrievedRederij;
     }
 
-    @PostMapping("rederij")
+    @PostMapping("/rederij")
     public Rederij insertRederij(@RequestBody Rederij rederij){
         return rederijService.insertRederij(rederij);
     }
