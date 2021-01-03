@@ -3,6 +3,7 @@ package com.example.rederijen.controller;
 import com.example.rederijen.models.Rederij;
 import com.example.rederijen.repository.RederijRepository;
 import com.example.rederijen.service.RederijService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -27,6 +28,12 @@ public class RederijController {
     public Rederij getRederijByID(@PathVariable int id){
         //logging
         return rederijService.getRederijById(id);
+    }
+
+    @GetMapping("/rederij/{naam}")
+    public Rederij getRederijByNaam(@PathVariable String naam) {
+        //logging
+        return rederijService.getRederijByNaam(naam);
     }
 
     @GetMapping("/rederij/postcode/{postcode}")

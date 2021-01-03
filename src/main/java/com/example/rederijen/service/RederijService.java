@@ -28,6 +28,13 @@ public class RederijService {
         return rederij;
     }
 
+    public Rederij getRederijByNaam(String naam) {
+        Rederij rederij;
+        rederij = rederijRepository.findRederijByNaam(naam);
+
+        return rederij;
+    }
+
     public List<Rederij> getRederijenByPostcode(String postcode){
         List<Rederij> rederijs = new ArrayList<>();
         logger.setLevel(Level.INFO);
@@ -42,13 +49,25 @@ public class RederijService {
         Rederij rederij;
         rederij = rederijRepository.findRederijByTelefoon(telefoon);
 
-        // logging
+        if (rederij != null) {
+            logger.info("Rederij met id " + rederij.getRederijdID() + " en telefoonnummer "+ rederij.getTelefoon() +" gevonden.");
+        } else {
+            logger.warning("Rederij met telefoonnummer " + rederij.getTelefoon() + " bestaat niet, of is niet gevonden");
+        }
+
         return rederij;
     }
 
     public Rederij insertRederij(Rederij rederij){
-        //logging
-        return rederijRepository.save(rederij);
+        if (rederijRepository.findRederijByNaam(rederij.getNaam()) == null)
+        {
+            logger.info("Rederij met naam " + rederij.getNaam() + " is toegevoegd");
+            return rederijRepository.save(rederij);
+        } else {
+            logger.warning("Rederij met deze naam bestaat al");
+            return null;
+        }
+
     }
 
     public void deleteRederij(int rederijId){
