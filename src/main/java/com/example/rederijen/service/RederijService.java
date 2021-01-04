@@ -22,7 +22,7 @@ public class RederijService {
 
     public Rederij getRederijById(String id){
         Rederij rederij;
-        rederij = rederijRepository.findRederijByRederijdID(id);
+        rederij = rederijRepository.findRederijById(id);
 
         //logging
         return rederij;
@@ -78,7 +78,7 @@ public class RederijService {
     }
 
     public Rederij updateRederij(Rederij rederij) {
-        Rederij newRederij = rederijRepository.findRederijByRederijdID(rederij.getId());
+        Rederij newRederij = rederijRepository.findRederijById(rederij.getId());
 
         newRederij.setGemeente(rederij.getGemeente());
         newRederij.setMail(rederij.getMail());

@@ -11,7 +11,7 @@ import java.util.List;
 public interface RederijRepository extends MongoRepository<Rederij, Integer> {
 
 
-    Rederij findRederijByRederijdID(String id);
+    Rederij findRederijById(String id);
 
     Rederij findRederijByNaam(String naam);
 
