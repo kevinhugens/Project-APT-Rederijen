@@ -20,7 +20,7 @@ public class RederijService {
         this.rederijRepository = rederijRepository;
     }
 
-    public Rederij getRederijById(int id){
+    public Rederij getRederijById(String id){
         Rederij rederij;
         rederij = rederijRepository.findRederijByRederijdID(id);
 
@@ -57,7 +57,7 @@ public class RederijService {
         rederij = rederijRepository.findRederijByTelefoon(telefoon);
 
         if (rederij != null) {
-            logger.info("Rederij met id " + rederij.getRederijdID() + " en telefoonnummer "+ rederij.getTelefoon() +" gevonden.");
+            logger.info("Rederij met id " + rederij.getId() + " en telefoonnummer "+ rederij.getTelefoon() +" gevonden.");
         } else {
             logger.warning("Rederij met telefoonnummer " + rederij.getTelefoon() + " bestaat niet, of is niet gevonden");
         }
@@ -78,7 +78,7 @@ public class RederijService {
     }
 
     public Rederij updateRederij(Rederij rederij) {
-        Rederij newRederij = rederijRepository.findRederijByRederijdID(rederij.getRederijdID());
+        Rederij newRederij = rederijRepository.findRederijByRederijdID(rederij.getId());
 
         newRederij.setGemeente(rederij.getGemeente());
         newRederij.setMail(rederij.getMail());
@@ -90,8 +90,8 @@ public class RederijService {
         return newRederij;
     }
 
-    public void deleteRederij(int rederijId){
+    public void deleteRederij(String id){
         //logging
-        rederijRepository.deleteById(rederijId);
+        rederijRepository.deleteById(Integer.parseInt(id));
     }
 }

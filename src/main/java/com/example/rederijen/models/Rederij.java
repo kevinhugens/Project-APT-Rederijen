@@ -10,13 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Setter
 @Data
-@Document(collection = "Rederij")
 public class Rederij {
-
-
     @Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rederijdID;
+    private String id;
 
     private String naam;
     private String mail;
@@ -25,8 +21,7 @@ public class Rederij {
     private String gemeente;
 
 
-    public Rederij(int rederijdID, String naam, String mail, String telefoon, String postcode, String gemeente) {
-        this.rederijdID = rederijdID;
+    public Rederij(String naam, String mail, String telefoon, String postcode, String gemeente) {
         this.naam = naam;
         this.mail = mail;
         this.telefoon = telefoon;

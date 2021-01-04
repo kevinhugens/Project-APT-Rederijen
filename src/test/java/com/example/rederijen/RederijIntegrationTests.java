@@ -39,9 +39,9 @@ public class RederijIntegrationTests {
     @MockBean
     private RederijService rederijService;
 
-    private Rederij rederij1 = new Rederij(1, "Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
-    private Rederij rederij2 = new Rederij(2, "Ruben", "ruben@gmail.com", "0474455789", "2440", "Geel");
-    private Rederij rederij3 = new Rederij(3,"Turnhout", "turnhout@gmail.com", "0454486958", "2300", "Turnhout");
+    private Rederij rederij1 = new Rederij("Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
+    private Rederij rederij2 = new Rederij("Ruben", "ruben@gmail.com", "0474455789", "2440", "Geel");
+    private Rederij rederij3 = new Rederij("Turnhout", "turnhout@gmail.com", "0454486958", "2300", "Turnhout");
 
     @BeforeEach
     public void beforeAllTests() {
@@ -72,10 +72,8 @@ public class RederijIntegrationTests {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].rederijdID", is(1)))
                 .andExpect(jsonPath("$[0].naam", is("Thomas More")))
                 .andExpect(jsonPath("$[0].mail", is("thomasmore@gmail.com")))
-                .andExpect(jsonPath("$[1].rederijdID", is(2)))
                 .andExpect(jsonPath("$[1].naam", is("Ruben")))
                 .andExpect(jsonPath("$[1].mail", is("ruben@gmail.com")));
     }
@@ -94,14 +92,13 @@ public class RederijIntegrationTests {
     @Test
     public void testPostRederij() throws Exception {
 
-        Rederij rederij4 = new Rederij(4, "TestRederij", "test@gmail.com", "0444444444", "2500", "TestDorp");
+        Rederij rederij4 = new Rederij("TestRederij", "test@gmail.com", "0444444444", "2500", "TestDorp");
 
         mockMvc.perform(post("/rederij/insert/")
                 .content(mapper.writeValueAsString(rederij4))
                 .contentType("application/json"))
                 .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.rederID", is(4)))
                 .andExpect(jsonPath("$.naam", is("TestRederij")))
                 .andExpect(jsonPath("$.mail", is("test@gmail.com")));
     }

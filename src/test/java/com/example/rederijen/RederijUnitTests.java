@@ -49,9 +49,9 @@ public class RederijUnitTests {
     @Test
     public void unitTestGetRederijenByPostcode() throws Exception {
         List<Rederij> rederijs = new ArrayList<>();
-        Rederij rederij1 = new Rederij(1, "Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
-        Rederij rederij2 = new Rederij(2, "Ruben", "ruben@gmail.com", "0474455789", "2440", "Geel");
-        Rederij rederij3 = new Rederij(3,"Turnhout", "turnhout@gmail.com", "0454486958", "2300", "Turnhout");
+        Rederij rederij1 = new Rederij("Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
+        Rederij rederij2 = new Rederij("Ruben", "ruben@gmail.com", "0474455789", "2440", "Geel");
+        Rederij rederij3 = new Rederij("Turnhout", "turnhout@gmail.com", "0454486958", "2300", "Turnhout");
 
         rederijs.add(rederij1);
         rederijs.add(rederij2);
@@ -63,10 +63,8 @@ public class RederijUnitTests {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].rederijdID", is(1)))
                 .andExpect(jsonPath("$[0].naam", is("Thomas More")))
                 .andExpect(jsonPath("$[0].mail", is("thomasmore@gmail.com")))
-                .andExpect(jsonPath("$[1].rederijdID", is(2)))
                 .andExpect(jsonPath("$[1].naam", is("Ruben")))
                 .andExpect(jsonPath("$[1].mail", is("ruben@gmail.com")));
     }
@@ -74,7 +72,7 @@ public class RederijUnitTests {
     @Test
     public void unitTestGetRederijByTelefoon() throws Exception {
 
-        Rederij rederij1 = new Rederij(1, "Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
+        Rederij rederij1 = new Rederij("Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
 
         logger.setLevel(Level.INFO);
         logger.info(rederij1.toString());
@@ -92,7 +90,7 @@ public class RederijUnitTests {
     @Test
     public void unitTestPostRederij() throws Exception {
 
-        Rederij rederij4 = new Rederij(4, "TestRederij", "test@gmail.com", "0444444444", "2500", "TestDorp");
+        Rederij rederij4 = new Rederij("TestRederij", "test@gmail.com", "0444444444", "2500", "TestDorp");
 
         mockMvc.perform(post("/rederij/insert/")
                 .content(mapper.writeValueAsString(rederij4))
@@ -106,7 +104,7 @@ public class RederijUnitTests {
 
     @Test
     public void unitTestDeleteRederij() throws Exception {
-        Rederij rederij3 = new Rederij(3,"Turnhout", "turnhout@gmail.com", "0454486958", "2300", "Turnhout");
+        Rederij rederij3 = new Rederij("Turnhout", "turnhout@gmail.com", "0454486958", "2300", "Turnhout");
 
         given(rederijRepository.findRederijByRederijdID(3)).willReturn(rederij3);
 

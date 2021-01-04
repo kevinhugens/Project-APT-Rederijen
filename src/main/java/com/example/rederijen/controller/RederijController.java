@@ -24,7 +24,7 @@ public class RederijController {
     }
 
     @GetMapping("/rederij/{id}")
-    public Rederij getRederijByID(@PathVariable int id){
+    public Rederij getRederijByID(@PathVariable String id){
         //logging
         return rederijService.getRederijById(id);
     }
@@ -55,7 +55,7 @@ public class RederijController {
     }
 
     @DeleteMapping("rederij/delete/{id}")
-    public void deleteRederijByID(@PathVariable int id){
+    public void deleteRederijByID(@PathVariable String id){
         //logging
         rederijService.deleteRederij(id);
     }
@@ -76,9 +76,9 @@ public class RederijController {
     @PostConstruct()
     public void fillDB() {
         if (rederijRepository.count() == 0) {
-            rederijRepository.save(new Rederij(1, "Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel"));
-            rederijRepository.save(new Rederij(2, "Ruben", "ruben@gmail.com", "0474455789", "2440", "Geel"));
-            rederijRepository.save(new Rederij(3,"Turnhout", "turnhout@gmail.com", "0454486958", "2300", "Turnhout"));
+            rederijRepository.save(new Rederij("Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel"));
+            rederijRepository.save(new Rederij("Ruben", "ruben@gmail.com", "0474455789", "2440", "Geel"));
+            rederijRepository.save(new Rederij("Turnhout", "turnhout@gmail.com", "0454486958", "2300", "Turnhout"));
         }
     }
 }
