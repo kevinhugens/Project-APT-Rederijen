@@ -34,7 +34,7 @@ public class RederijController {
         return rederijService.getAllRederijen();
     }
 
-    @GetMapping("/rederij/{naam}")
+    @GetMapping("/rederij/naam/{naam}")
     public Rederij getRederijByNaam(@PathVariable String naam) {
         //logging
         return rederijService.getRederijByNaam(naam);
