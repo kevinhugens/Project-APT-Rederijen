@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Repository
-public interface RederijRepository extends MongoRepository<Rederij, Integer> {
+public interface RederijRepository extends MongoRepository<Rederij, String> {
 
 
     Rederij findRederijById(String id);
