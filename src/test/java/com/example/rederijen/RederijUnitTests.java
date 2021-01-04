@@ -106,7 +106,7 @@ public class RederijUnitTests {
     public void unitTestDeleteRederij() throws Exception {
         Rederij rederij3 = new Rederij("Turnhout", "turnhout@gmail.com", "0454486958", "2300", "Turnhout");
 
-        given(rederijRepository.findRederijByRederijdID(3)).willReturn(rederij3);
+        given(rederijRepository.findRederijByRederijdID("3")).willReturn(rederij3);
 
         mockMvc.perform(delete("/rederij/delete/{id}", 3)
                 .contentType(MediaType.APPLICATION_JSON))
