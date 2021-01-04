@@ -82,7 +82,7 @@ public class RederijUnitTests {
         mockMvc.perform(get("/rederij/telefoon/{telefoon}", "0474848488"))
                 .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.rederijdID", is(1)))
+                .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.telefoon", is("0474848488")))
                 .andExpect(jsonPath("$.mail", is("thomasmore@gmail.com")));
     }
@@ -97,7 +97,7 @@ public class RederijUnitTests {
                 .contentType("application/json"))
                 .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.rederID", is(4)))
+                .andExpect(jsonPath("$.id", is(4)))
                 .andExpect(jsonPath("$.naam", is("TestRederij")))
                 .andExpect(jsonPath("$.mail", is("test@gmail.com")));
     }

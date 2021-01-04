@@ -92,6 +92,6 @@ public class RederijService {
 
     public void deleteRederij(String id){
         //logging
-        rederijRepository.deleteById(Integer.parseInt(id));
+        rederijRepository.deleteById(id);
     }
 }
