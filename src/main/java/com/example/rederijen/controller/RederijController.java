@@ -29,8 +29,8 @@ public class RederijController {
         return rederijService.getRederijById(id);
     }
 
-    @GetMapping("/containers")
-    public List<Rederij> getAllContainers() {
+    @GetMapping("/rederijen")
+    public List<Rederij> getAllRederijen() {
         return rederijService.getAllRederijen();
     }
 
