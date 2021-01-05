@@ -13,10 +13,10 @@ import java.util.logging.Logger;
 @RestController
 public class RederijController {
 
-    Logger logger = Logger.getLogger(RederijController.class.getName());
 
     private RederijService rederijService;
     private RederijRepository rederijRepository;
+    Logger logger = Logger.getLogger(RederijController.class.getName());
 
     public RederijController(RederijService rederijService, RederijRepository rederijRepository) {
         this.rederijService = rederijService;
@@ -24,8 +24,8 @@ public class RederijController {
     }
 
     @GetMapping("/rederij/{id}")
-    public Rederij getRederijByID(@PathVariable String id){
-        //logging
+    public Rederij getRederijByID(
+            @PathVariable String id){
         return rederijService.getRederijById(id);
     }
 
@@ -35,41 +35,45 @@ public class RederijController {
     }
 
     @GetMapping("/rederij/naam/{naam}")
-    public Rederij getRederijByNaam(@PathVariable String naam) {
-        //logging
+    public Rederij getRederijByNaam(
+            @PathVariable String naam) {
         return rederijService.getRederijByNaam(naam);
     }
 
     @GetMapping("/rederij/postcode/{postcode}")
-    public List<Rederij> getRederijenByPostcode(@PathVariable String postcode){
-        //logging
+    public List<Rederij> getRederijenByPostcode(
+            @PathVariable String postcode){
         logger.setLevel(Level.INFO);
         logger.info(rederijRepository.findAll().toString());
+
         return rederijService.getRederijenByPostcode(postcode);
     }
 
     @GetMapping("/rederij/telefoon/{telefoon}")
-    public Rederij getRederijByTelefoon(@PathVariable String telefoon){
-        //logging
+    public Rederij getRederijByTelefoon(
+            @PathVariable String telefoon){
         return rederijService.getRederijByTelefoon(telefoon);
     }
 
     @DeleteMapping("rederij/delete/{id}")
-    public void deleteRederijByID(@PathVariable String id){
-        //logging
+    public void deleteRederijByID(
+            @PathVariable String id){
         rederijService.deleteRederij(id);
     }
 
     @PutMapping("rederij/update")
-    public Rederij updateRederij(@RequestBody Rederij rederij) {
+    public Rederij updateRederij(
+            @RequestBody Rederij rederij) {
         Rederij retrievedRederij;
 
         retrievedRederij = rederijService.updateRederij(rederij);
+
         return retrievedRederij;
     }
 
     @PostMapping("/rederij")
-    public Rederij insertRederij(@RequestBody Rederij rederij){
+    public Rederij insertRederij(
+            @RequestBody Rederij rederij){
         return rederijService.insertRederij(rederij);
     }
 

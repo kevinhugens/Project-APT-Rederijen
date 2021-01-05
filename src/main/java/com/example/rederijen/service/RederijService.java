@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 @Service
 public class RederijService {
 
-    Logger logger = Logger.getLogger(RederijService.class.getName());
 
     private RederijRepository rederijRepository;
+    Logger logger = Logger.getLogger(RederijService.class.getName());
 
     public RederijService(RederijRepository rederijRepository) {
         this.rederijRepository = rederijRepository;
@@ -24,7 +24,6 @@ public class RederijService {
         Rederij rederij;
         rederij = rederijRepository.findRederijById(id);
 
-        //logging
         return rederij;
     }
 
@@ -44,11 +43,13 @@ public class RederijService {
 
     public List<Rederij> getRederijenByPostcode(String postcode){
         List<Rederij> rederijs = new ArrayList<>();
+
+        rederijs = rederijRepository.findRederijsByPostcode(postcode);
+
         logger.setLevel(Level.INFO);
         logger.info(postcode);
-        rederijs = rederijRepository.findRederijsByPostcode(postcode);
         logger.info(rederijs.toString());
-        //logging
+
         return rederijs;
     }
 
@@ -87,11 +88,11 @@ public class RederijService {
         newRederij.setTelefoon(rederij.getTelefoon());
 
         rederijRepository.save(newRederij);
+
         return newRederij;
     }
 
     public void deleteRederij(String id){
-        //logging
         rederijRepository.deleteById(id);
     }
 }
