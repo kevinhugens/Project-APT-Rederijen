@@ -40,10 +40,6 @@ public class RederijUnitTests {
 
     private final static Logger logger = Logger.getLogger(RederijUnitTests.class.getName());
 
-
-//    @MockBean
-//    private MongoTemplate mongoTemplatel;
-
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
@@ -83,6 +79,20 @@ public class RederijUnitTests {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.telefoon", is("0474848488")))
+                .andExpect(jsonPath("$.mail", is("thomasmore@gmail.com")));
+    }
+
+    @Test
+    public void testGetRederijByNaam() throws Exception {
+        Rederij rederij1 = new Rederij("Thomas More", "thomasmore@gmail.com", "0474848488", "2440", "Geel");
+
+        given(rederijRepository.findRederijByNaam("Thomas More")).willReturn(rederij1);
+
+        mockMvc.perform(get("/rederijen/naam/{naam}", "Thomas More"))
+                .andExpect(content().contentType("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.rederijdID", is(1)))
                 .andExpect(jsonPath("$.telefoon", is("0474848488")))
                 .andExpect(jsonPath("$.mail", is("thomasmore@gmail.com")));
     }

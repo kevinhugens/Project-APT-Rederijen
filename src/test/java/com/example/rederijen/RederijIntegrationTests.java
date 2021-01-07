@@ -68,7 +68,7 @@ public class RederijIntegrationTests {
         logger.setLevel(Level.INFO);
         logger.info(rederijs.toString());
 
-        mockMvc.perform(get("/rederij/postcode/{postcode}", "2440"))
+        mockMvc.perform(get("/rederijen/postcode/{postcode}", "2440"))
                 .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -81,7 +81,18 @@ public class RederijIntegrationTests {
     @Test
     public void testGetRederijByTelefoon() throws Exception {
 
-        mockMvc.perform(get("/rederij/telefoon/{telefoon}", "0474848488"))
+        mockMvc.perform(get("/rederijen/telefoon/{telefoon}", "0474848488"))
+                .andExpect(content().contentType("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.rederijdID", is(1)))
+                .andExpect(jsonPath("$.telefoon", is("0474848488")))
+                .andExpect(jsonPath("$.mail", is("thomasmore@gmail.com")));
+    }
+
+    @Test
+    public void testGetRederijByNaam() throws Exception {
+
+        mockMvc.perform(get("/rederijen/naam/{naam}", "Thomas More"))
                 .andExpect(content().contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.rederijdID", is(1)))
