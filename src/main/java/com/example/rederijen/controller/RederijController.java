@@ -23,7 +23,7 @@ public class RederijController {
         this.rederijRepository = rederijRepository;
     }
 
-    @GetMapping("/rederij/{id}")
+    @GetMapping("/rederijen/{id}")
     public Rederij getRederijByID(
             @PathVariable String id){
         return rederijService.getRederijById(id);
@@ -34,13 +34,13 @@ public class RederijController {
         return rederijService.getAllRederijen();
     }
 
-    @GetMapping("/rederij/naam/{naam}")
+    @GetMapping("/rederijen/naam/{naam}")
     public Rederij getRederijByNaam(
             @PathVariable String naam) {
         return rederijService.getRederijByNaam(naam);
     }
 
-    @GetMapping("/rederij/postcode/{postcode}")
+    @GetMapping("/rederijen/postcode/{postcode}")
     public List<Rederij> getRederijenByPostcode(
             @PathVariable String postcode){
         logger.setLevel(Level.INFO);
@@ -49,19 +49,19 @@ public class RederijController {
         return rederijService.getRederijenByPostcode(postcode);
     }
 
-    @GetMapping("/rederij/telefoon/{telefoon}")
+    @GetMapping("/rederijen/telefoon/{telefoon}")
     public Rederij getRederijByTelefoon(
             @PathVariable String telefoon){
         return rederijService.getRederijByTelefoon(telefoon);
     }
 
-    @DeleteMapping("rederij/delete/{id}")
+    @DeleteMapping("rederijen/delete/{id}")
     public void deleteRederijByID(
             @PathVariable String id){
         rederijService.deleteRederij(id);
     }
 
-    @PutMapping("rederij/update")
+    @PutMapping("rederijen/update")
     public Rederij updateRederij(
             @RequestBody Rederij rederij) {
         Rederij retrievedRederij;
@@ -71,7 +71,7 @@ public class RederijController {
         return retrievedRederij;
     }
 
-    @PostMapping("/rederij")
+    @PostMapping("/rederijen/insert")
     public Rederij insertRederij(
             @RequestBody Rederij rederij){
         return rederijService.insertRederij(rederij);
