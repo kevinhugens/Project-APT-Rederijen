@@ -60,6 +60,36 @@ public class RederijIntegrationTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
+    public void testGetAll() throws Exception {
+        List<Rederij> rederijs = new ArrayList<>();
+        rederijs.add(rederij1);
+        rederijs.add(rederij2);
+        rederijs.add(rederij3);
+
+        mockMvc.perform(get("/rederijen"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].naam", is("Thomas More")))
+                .andExpect(jsonPath("$[0].mail", is("thomasmore@gmail.com")))
+                .andExpect(jsonPath("$[0].telefoon", is("047484848")))
+                .andExpect(jsonPath("$[0].postcode", is("2440")))
+                .andExpect(jsonPath("$[0].gemeente", is("Geel")))
+                .andExpect(jsonPath("$[1].naam", is("Ruben")))
+                .andExpect(jsonPath("$[1].mail", is("ruben@gmail.com")))
+                .andExpect(jsonPath("$[1].telefoon", is("0474455789")))
+                .andExpect(jsonPath("$[1].postcode", is("2440")))
+                .andExpect(jsonPath("$[1].gemeente", is("Geel")))
+                .andExpect(jsonPath("$[2].naam", is("Turnhout")))
+                .andExpect(jsonPath("$[2].mail", is("turnhout@gmail.com")))
+                .andExpect(jsonPath("$[2].telefoon", is("0454486958")))
+                .andExpect(jsonPath("$[2].postcode", is("2300")))
+                .andExpect(jsonPath("$[2].gemeente", is("Turnhout")));
+
+    }
+
+
+    @Test
     public void testGetRederijenByPostcode() throws Exception {
         List<Rederij> rederijs = new ArrayList<>();
         rederijs.add(rederij1);
